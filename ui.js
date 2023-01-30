@@ -1,0 +1,26 @@
+export const UI = {
+  DISPLAY: document.getElementById("display"),
+  NUMBER: {
+    NULL: document.getElementById("null"),
+    ONE: document.getElementById("one"),
+    TWO: document.getElementById("two"),
+    THREE: document.getElementById("three"),
+    FOUR: document.getElementById("four"),
+    FIVE: document.getElementById("five"),
+    SIX: document.getElementById("six"),
+    SEVEN: document.getElementById("seven"),
+    EIGHT: document.getElementById("eight"),
+    NINE: document.getElementById("nine"),
+    // DOT: document.getElementById("dot"),
+  },
+  OPERATOR: {
+    DIVIDE: document.getElementById("divide"),
+    MULTIPLY: document.getElementById("multiply"),
+    SUBTRACT: document.getElementById("subtract"),
+    ADD: document.getElementById("add"),
+    // PLUSMINUS: document.getElementById("plusMinus"),
+  },
+  OPERATORS: document.querySelectorAll(".operatorBtn"),
+  EQUALS: document.getElementById("equals"),
+  CLEAR: document.getElementById("clear"),
+};

@@ -1,0 +1,59 @@
+header {
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 700px;
+}
+
+.calculatorWindow {
+  width: 400px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  width: 400px;
+  height: 48px;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  grid-auto-rows: 80px;
+}
+
+#clear {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+#null {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.clearBtn {
+}
+.operatorBtn {
+}
+.numberBtn {
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  background-color: rgb(173, 129, 129);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

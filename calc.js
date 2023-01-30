@@ -63,6 +63,9 @@ UI.OPERATORS.forEach(function (e) {
 });
 
 //ПРИ НАЖАТИИ НА - ДОЛЖЕН СЧИТАТЬ МНЕ РЕЗУЛЬТАТ +
+//Extract the code that calculates and displays the result into a separate function.
+//Then you can call it from both the equals event listener and the event listener for
+//all the operator buttons.
 
 const operate = (operation, a, b) => {
   console.log(`current operation: ${operation}`);

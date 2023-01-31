@@ -56,7 +56,8 @@ UI.OPERATORS.forEach(function (e) {
       operate(calculator.operation);
     } else if (calculator.operation !== "") {
       calculator.pendingOperation = e.id;
-      operate(calculator.pendingOperation);
+      console.log(`pending operation: ${calculator.pendingOperation}`);
+      operate(calculator.operation);
     } else {
     }
   });
@@ -68,7 +69,7 @@ UI.OPERATORS.forEach(function (e) {
 //all the operator buttons.
 
 const operate = (operation, a, b) => {
-  console.log(`current operation: ${operation}`);
+  console.log(`running operation: ${operation}`);
   a = calculator.a;
   console.log(`value of a: ${a}`);
   b = calculator.b;
@@ -91,6 +92,11 @@ const operate = (operation, a, b) => {
     }
     console.log(`last calculation result: ${calculator.result}`);
     UI.DISPLAY.textContent = calculator.result;
+    calculator.a = calculator.result;
+    calculator.b = "";
+    calculator.operation = calculator.pendingOperation;
+    console.log(`value of a after clculation: ${calculator.a}`);
+    console.log(`value of b after clculation: ${calculator.b}`);
   } else {
   }
 

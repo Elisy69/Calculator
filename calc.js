@@ -5,7 +5,6 @@ const calculator = {
   b: "",
   storedValue: "",
   result: "",
-  checkValue: 0,
   operation: "",
   pendingOperation: "",
 };
@@ -32,18 +31,28 @@ for (let key in UI.NUMBER) {
   });
 }
 
+// 1) нужно чтобы нажатие несколько раз оператора (без введения цифр)
+// не выводило 0
+// 2) разобраться с двойными нулями
+// 3) разобраться с оператором EQUALS (он просто
+// путает операции и берет pending operation как
+// running
+
 function addValueToDisplay(number) {
-  calculator.storedValue += number;
-  UI.DISPLAY.textContent = calculator.storedValue;
-  if (calculator.operation == "") {
-    calculator.a += number;
-    calculator.a = Number(calculator.a);
-    console.log(`first number: ${calculator.a}`);
-  } else if (calculator.operation !== "") {
-    calculator.b += number;
-    calculator.b = Number(calculator.b);
-    console.log(`second number: ${calculator.b}`);
+  console.log(UI.DISPLAY.textContent);
+  console.log(calculator.storedValue);
+  if (number[0] == "0" && UI.DISPLAY.textContent[0] == "0") {
   } else {
+    calculator.storedValue += number;
+    UI.DISPLAY.textContent = calculator.storedValue;
+    if (calculator.operation == "") {
+      calculator.a += number;
+      calculator.a = Number(calculator.a);
+    } else if (calculator.operation !== "") {
+      calculator.b += number;
+      calculator.b = Number(calculator.b);
+    } else {
+    }
   }
 }
 
@@ -62,11 +71,6 @@ UI.OPERATORS.forEach(function (e) {
     }
   });
 });
-
-//ПРИ НАЖАТИИ НА - ДОЛЖЕН СЧИТАТЬ МНЕ РЕЗУЛЬТАТ +
-//Extract the code that calculates and displays the result into a separate function.
-//Then you can call it from both the equals event listener and the event listener for
-//all the operator buttons.
 
 const operate = (operation, a, b) => {
   console.log(`running operation: ${operation}`);
@@ -90,46 +94,52 @@ const operate = (operation, a, b) => {
         calculator.result = add(a, b);
         break;
     }
-    console.log(`last calculation result: ${calculator.result}`);
+    console.log(`calculation result: ${calculator.result}`);
     UI.DISPLAY.textContent = calculator.result;
     calculator.a = calculator.result;
     calculator.b = "";
     calculator.operation = calculator.pendingOperation;
-    console.log(`value of a after clculation: ${calculator.a}`);
-    console.log(`value of b after clculation: ${calculator.b}`);
   } else {
   }
-
-  UI.CLEAR.addEventListener("click", () => {
-    a = "";
-    console.log(`a: ${a}`);
-    b = "";
-    console.log(`b: ${b}`);
-    UI.DISPLAY.textContent = "0";
-    result = "";
-    console.log(`result: ${result}`);
-  });
-  UI.EQUALS.addEventListener("click", () => {
-    if (typeof a == "number" && typeof b == "number") {
-      switch (operator) {
-        case "divide":
-          result = divide(a, b);
-          console.log(result);
-          break;
-        case "multiply":
-          result = multiply(a, b);
-          console.log(result);
-          break;
-        case "subtract":
-          result = subtract(a, b);
-          console.log(result);
-          break;
-        case "add":
-          result = add(a, b);
-          console.log(result);
-          break;
-      }
-      UI.DISPLAY.textContent = result;
-    }
-  });
 };
+
+UI.CLEAR.addEventListener("click", () => {
+  console.log(`ALL VALUES ERASED`);
+  UI.DISPLAY.textContent = "0";
+  for (let key in calculator) {
+    calculator[key] = "";
+  }
+  console.log(JSON.stringify(calculator));
+});
+
+UI.EQUALS.addEventListener("click", () => {
+  let a;
+  let b;
+  a = Number(calculator.a);
+  console.log(`value of a: ${a}`);
+  calculator.b = UI.DISPLAY.textContent;
+  b = Number(calculator.b);
+  console.log(`value of b: ${b}`);
+  if (typeof a == "number" && typeof b == "number") {
+    console.log("operation running...");
+    switch (calculator.operation) {
+      case "divide":
+        calculator.result = divide(a, b);
+        break;
+      case "multiply":
+        calculator.result = multiply(a, b);
+        break;
+      case "subtract":
+        calculator.result = subtract(a, b);
+        break;
+      case "add":
+        calculator.result = add(a, b);
+        break;
+    }
+    console.log(`calculation result: ${calculator.result}`);
+    UI.DISPLAY.textContent = calculator.result;
+    calculator.a = calculator.result;
+    calculator.b = "";
+  } else {
+  }
+});

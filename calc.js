@@ -32,17 +32,23 @@ for (let key in UI.NUMBER) {
 }
 
 // 1) нужно чтобы нажатие несколько раз оператора (без введения цифр)
-// не выводило 0
-// 2) разобраться с двойными нулями
+// не выводило 0 ЗАПИСЫВАЕТСЯ КУЧА ВСЕГО В Б, проверка нужна
+// 2) разобраться с двойными нулями DONE!
 // 3) разобраться с оператором EQUALS (он просто
 // путает операции и берет pending operation как
 // running
 
 function addValueToDisplay(number) {
-  console.log(UI.DISPLAY.textContent);
-  console.log(calculator.storedValue);
-  if (number[0] == "0" && UI.DISPLAY.textContent[0] == "0") {
+  if (number == "0" && UI.DISPLAY.textContent[0] == "0") {
+    console.log(UI.DISPLAY.textContent[0]);
+    console.log("oops");
   } else {
+    if (calculator.storedValue == "0") {
+      calculator.storedValue = "";
+      UI.DISPLAY.textContent = "0";
+    } else {
+    }
+    console.log(calculator.storedValue);
     calculator.storedValue += number;
     UI.DISPLAY.textContent = calculator.storedValue;
     if (calculator.operation == "") {
@@ -60,6 +66,8 @@ UI.OPERATORS.forEach(function (e) {
   e.addEventListener("click", function () {
     UI.DISPLAY.textContent = "0";
     calculator.storedValue = "";
+    console.log(UI.DISPLAY.textContent);
+    console.log(calculator.storedValue);
     if (calculator.operation == "") {
       calculator.operation = e.id;
       operate(calculator.operation);
